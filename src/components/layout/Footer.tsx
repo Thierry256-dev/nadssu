@@ -1,37 +1,36 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import {
-  Facebook, Twitter, Instagram, Linkedin, Youtube,
-  Mail, Phone, MapPin,
-} from 'lucide-react'
-import type { SiteConfig } from '@/lib/types'
+import Link from "next/link";
+import Image from "next/image";
+import { Globe, Mail, Phone, MapPin } from "lucide-react";
+import type { SiteConfig } from "@/lib/types";
 
 const QUICK_LINKS = [
-  { label: 'About NADSSU', href: '/about' },
-  { label: 'Membership', href: '/members' },
-  { label: 'Governance', href: '/governance' },
-  { label: 'Career Hub', href: '/career-hub' },
-  { label: 'Resources', href: '/resources' },
-  { label: 'Events', href: '/events' },
-  { label: 'News', href: '/news' },
-  { label: 'Contact', href: '/contact' },
-]
+  { label: "About NADSSU", href: "/about" },
+  { label: "Membership", href: "/members" },
+  { label: "Governance", href: "/governance" },
+  { label: "Career Hub", href: "/career-hub" },
+  { label: "Resources", href: "/resources" },
+  { label: "Events", href: "/events" },
+  { label: "News", href: "/news" },
+  { label: "Contact", href: "/contact" },
+];
 
 const SOCIAL_ICONS = {
-  facebook: Facebook,
-  twitter: Twitter,
-  instagram: Instagram,
-  linkedin: Linkedin,
-  youtube: Youtube,
-}
+  facebook: Globe,
+  twitter: Globe,
+  instagram: Globe,
+  linkedin: Globe,
+  youtube: Globe,
+};
 
 interface FooterProps {
-  config: SiteConfig
+  config: SiteConfig;
 }
 
 export function Footer({ config }: FooterProps) {
-  const year = new Date().getFullYear()
-  const socialEntries = Object.entries(config.social_links ?? {}).filter(([, v]) => v)
+  const year = new Date().getFullYear();
+  const socialEntries = Object.entries(config.social_links ?? {}).filter(
+    ([, v]) => v,
+  );
 
   return (
     <footer className="section-navy mt-auto">
@@ -69,8 +68,9 @@ export function Footer({ config }: FooterProps) {
             {socialEntries.length > 0 && (
               <div className="flex items-center gap-3 mt-5">
                 {socialEntries.map(([platform, url]) => {
-                  const Icon = SOCIAL_ICONS[platform as keyof typeof SOCIAL_ICONS]
-                  if (!Icon) return null
+                  const Icon =
+                    SOCIAL_ICONS[platform as keyof typeof SOCIAL_ICONS];
+                  if (!Icon) return null;
                   return (
                     <a
                       key={platform}
@@ -82,7 +82,7 @@ export function Footer({ config }: FooterProps) {
                     >
                       <Icon size={16} />
                     </a>
-                  )
+                  );
                 })}
               </div>
             )}
@@ -127,10 +127,13 @@ export function Footer({ config }: FooterProps) {
               {config.contact_phone?.map((phone) => (
                 <li key={phone}>
                   <a
-                    href={`tel:${phone.replace(/\s/g, '')}`}
+                    href={`tel:${phone.replace(/\s/g, "")}`}
                     className="flex items-start gap-2.5 text-sm text-white/70 hover:text-white transition-colors"
                   >
-                    <Phone size={15} className="mt-0.5 shrink-0 text-white/40" />
+                    <Phone
+                      size={15}
+                      className="mt-0.5 shrink-0 text-white/40"
+                    />
                     {phone}
                   </a>
                 </li>
@@ -162,11 +165,9 @@ export function Footer({ config }: FooterProps) {
           <p>
             &copy; {year} {config.site_name}. All rights reserved.
           </p>
-          <p>
-            Nutrition and Dietetics Students&apos; Society of Uganda
-          </p>
+          <p>Nutrition and Dietetics Students&apos; Society of Uganda</p>
         </div>
       </div>
     </footer>
-  )
+  );
 }
