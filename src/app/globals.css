@@ -1,0 +1,194 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   NADSSU Design System — Brand Tokens
+   ============================================================ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* NADSSU brand */
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-blue-brand: var(--blue-brand);
+  --color-blue-light: var(--blue-light);
+  --color-powder: var(--powder);
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  /* Radius */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  /* Font */
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.16 0.04 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.16 0.04 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0.04 255);
+  --primary: oklch(0.46 0.16 255);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.94 0.03 240);
+  --secondary-foreground: oklch(0.25 0.06 255);
+  --muted: oklch(0.96 0.01 240);
+  --muted-foreground: oklch(0.5 0.04 255);
+  --accent: oklch(0.92 0.04 240);
+  --accent-foreground: oklch(0.25 0.06 255);
+  --destructive: oklch(0.58 0.24 27);
+  --border: oklch(0.90 0.02 240);
+  --input: oklch(0.92 0.02 240);
+  --ring: oklch(0.46 0.16 255);
+  /* NADSSU custom tokens */
+  --navy: oklch(0.16 0.06 255);
+  --navy-light: oklch(0.28 0.07 255);
+  --blue-brand: oklch(0.46 0.16 255);
+  --blue-light: oklch(0.60 0.12 240);
+  --powder: oklch(0.95 0.03 240);
+  --radius: 0.625rem;
+  /* Sidebar */
+  --sidebar: oklch(0.18 0.06 255);
+  --sidebar-foreground: oklch(0.95 0.02 240);
+  --sidebar-primary: oklch(0.55 0.16 255);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.25 0.07 255);
+  --sidebar-accent-foreground: oklch(0.95 0.02 240);
+  --sidebar-border: oklch(0.28 0.06 255);
+  --sidebar-ring: oklch(0.55 0.16 255);
+  /* Charts */
+  --chart-1: oklch(0.46 0.16 255);
+  --chart-2: oklch(0.60 0.12 240);
+  --chart-3: oklch(0.75 0.08 220);
+  --chart-4: oklch(0.88 0.05 200);
+  --chart-5: oklch(0.94 0.03 240);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold tracking-tight;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Prose styles for rich-text output */
+.prose-nadssu {
+  line-height: 1.8;
+  color: oklch(0.22 0.05 255);
+}
+.prose-nadssu h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: oklch(0.16 0.06 255);
+}
+.prose-nadssu h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: oklch(0.16 0.06 255);
+}
+.prose-nadssu p { margin-bottom: 1rem; }
+.prose-nadssu ul, .prose-nadssu ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+.prose-nadssu ul { list-style-type: disc; }
+.prose-nadssu ol { list-style-type: decimal; }
+.prose-nadssu li { margin-bottom: 0.35rem; }
+.prose-nadssu strong { font-weight: 700; }
+.prose-nadssu em { font-style: italic; }
+.prose-nadssu a { color: oklch(0.46 0.16 255); text-decoration: underline; text-underline-offset: 3px; }
+.prose-nadssu a:hover { color: oklch(0.35 0.14 255); }
+.prose-nadssu blockquote {
+  border-left: 4px solid oklch(0.46 0.16 255);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: oklch(0.45 0.04 255);
+  font-style: italic;
+}
+.prose-nadssu img { border-radius: 0.5rem; max-width: 100%; height: auto; margin: 1.5rem auto; }
+.prose-nadssu hr { border-color: oklch(0.90 0.02 240); margin: 2rem 0; }
+
+/* Tiptap editor */
+.tiptap-editor .ProseMirror {
+  min-height: 280px;
+  padding: 1rem;
+  outline: none;
+  line-height: 1.8;
+}
+.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: oklch(0.65 0.02 240);
+  pointer-events: none;
+  height: 0;
+}
+.tiptap-editor .ProseMirror ul { list-style-type: disc; padding-left: 1.5rem; }
+.tiptap-editor .ProseMirror ol { list-style-type: decimal; padding-left: 1.5rem; }
+.tiptap-editor .ProseMirror blockquote {
+  border-left: 4px solid oklch(0.46 0.16 255);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+}
+.tiptap-editor .ProseMirror img { border-radius: 0.5rem; max-width: 100%; height: auto; }
+.tiptap-editor .ProseMirror a { color: oklch(0.46 0.16 255); text-decoration: underline; }
+
+/* Layout utilities */
+.section-powder { background-color: oklch(0.96 0.025 240); }
+.section-navy { background-color: oklch(0.16 0.06 255); color: oklch(0.95 0.02 240); }
+.container-site {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 640px) { .container-site { padding-inline: 2rem; } }
+@media (min-width: 1024px) { .container-site { padding-inline: 2.5rem; } }
