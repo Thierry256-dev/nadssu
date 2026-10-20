@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Globe, Mail, Phone, MapPin } from "lucide-react";
 import type { SiteConfig } from "@/lib/types";
+import { createClient } from "@/lib/supabase/server";
 
 const QUICK_LINKS = [
   { label: "About NADSSU", href: "/about" },
@@ -26,11 +27,19 @@ interface FooterProps {
   config: SiteConfig;
 }
 
-export function Footer({ config }: FooterProps) {
+export async function Footer({ config }: FooterProps) {
   const year = new Date().getFullYear();
   const socialEntries = Object.entries(config.social_links ?? {}).filter(
     ([, v]) => v,
   );
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const adminHref = user ? "/admin" : "/admin/login";
+  const adminLabel = user ? "Dashboard" : "Sign in";
 
   return (
     <footer className="section-navy mt-auto">
@@ -153,10 +162,10 @@ export function Footer({ config }: FooterProps) {
               Administration
             </h3>
             <Link
-              href="/admin"
+              href={adminHref}
               className="inline-block text-sm text-white/70 hover:text-white transition-colors"
             >
-              Admin Dashboard →
+              {adminLabel} →
             </Link>
           </div>
         </div>

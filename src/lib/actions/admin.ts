@@ -413,7 +413,9 @@ export async function updateSiteSetting(key: string, value: unknown): Promise<Ac
 export async function adminSignOut(): Promise<void> {
   const supabase = await createClient()
   await supabase.auth.signOut()
-  redirect('/admin/login')
+  revalidatePath('/', 'layout')
+  revalidatePath('/admin', 'page')
+  redirect('/')
 }
 
 export async function updateApplicationStatus(
