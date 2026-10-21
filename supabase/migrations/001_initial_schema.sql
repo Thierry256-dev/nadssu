@@ -595,6 +595,47 @@ CREATE POLICY "Admins manage contact_messages"
   WITH CHECK (public.is_admin());
 
 -- ============================================================
+-- STORAGE BUCKET POLICIES
+-- Actual policies required for uploads to succeed
+-- ============================================================
+
+-- Image bucket policies
+CREATE POLICY "Public can view images"
+  ON storage.objects FOR SELECT
+  USING (bucket_id = 'images');
+
+CREATE POLICY "Admins can upload images"
+  ON storage.objects FOR INSERT
+  WITH CHECK (bucket_id = 'images' AND public.is_admin());
+
+CREATE POLICY "Admins can update images"
+  ON storage.objects FOR UPDATE
+  USING (bucket_id = 'images' AND public.is_admin())
+  WITH CHECK (bucket_id = 'images' AND public.is_admin());
+
+CREATE POLICY "Admins can delete images"
+  ON storage.objects FOR DELETE
+  USING (bucket_id = 'images' AND public.is_admin());
+
+-- Documents bucket policies
+CREATE POLICY "Public can view documents"
+  ON storage.objects FOR SELECT
+  USING (bucket_id = 'documents');
+
+CREATE POLICY "Admins can upload documents"
+  ON storage.objects FOR INSERT
+  WITH CHECK (bucket_id = 'documents' AND public.is_admin());
+
+CREATE POLICY "Admins can update documents"
+  ON storage.objects FOR UPDATE
+  USING (bucket_id = 'documents' AND public.is_admin())
+  WITH CHECK (bucket_id = 'documents' AND public.is_admin());
+
+CREATE POLICY "Admins can delete documents"
+  ON storage.objects FOR DELETE
+  USING (bucket_id = 'documents' AND public.is_admin());
+
+-- ============================================================
 -- STORAGE BUCKETS
 -- Run these in Supabase dashboard or via service role
 -- ============================================================
