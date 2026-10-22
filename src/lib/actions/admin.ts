@@ -714,3 +714,48 @@ export async function markMessageRead(
     };
   }
 }
+
+export async function markMessageResolved(
+  id: string,
+  isResolved: boolean,
+): Promise<ActionResult> {
+  try {
+    const { supabase } = await requireAdmin();
+    const { error } = await supabase
+      .from("contact_messages")
+      .update({ is_resolved: isResolved })
+      .eq("id", id);
+    if (error) return { success: false, error: error.message };
+    revalidatePath("/admin/messages");
+    return { success: true };
+  } catch (e: unknown) {
+    return {
+      success: false,
+      error: e instanceof Error ? e.message : "Server error",
+    };
+  }
+}
+
+export async function updateMessageNotes(
+  id: string,
+  notes: string,
+): Promise<ActionResult> {
+  try {
+    const { supabase } = await requireAdmin();
+    const { error } = await supabase
+      .from("contact_messages")
+      .update({
+        admin_notes: notes || null,
+        is_read: true,
+      })
+      .eq("id", id);
+    if (error) return { success: false, error: error.message };
+    revalidatePath("/admin/messages");
+    return { success: true };
+  } catch (e: unknown) {
+    return {
+      success: false,
+      error: e instanceof Error ? e.message : "Server error",
+    };
+  }
+}

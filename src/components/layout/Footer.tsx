@@ -56,7 +56,7 @@ export async function Footer({ config }: FooterProps) {
                   alt={`${config.site_name} logo`}
                   width={40}
                   height={40}
-                  className="h-10 w-10 object-contain brightness-0 invert"
+                  className="h-10 w-10 object-contain"
                 />
               ) : (
                 <div className="h-10 w-10 rounded-lg bg-primary/80 flex items-center justify-center text-white font-bold text-sm">

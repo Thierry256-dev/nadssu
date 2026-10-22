@@ -9,6 +9,7 @@ export const contactFormSchema = z.object({
     .string()
     .min(10, "Message must be at least 10 characters")
     .max(5000),
+  reply_phone: z.string().max(30).optional(),
 });
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
 
