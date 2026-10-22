@@ -50,10 +50,14 @@ export default async function HomePage() {
           "id, title, slug, summary, cover_image_url, category, published_at, author",
         )
         .eq("status", "published")
-        .lte("published_at", new Date().toISOString())
         .order("published_at", { ascending: false })
         .limit(3),
     ]);
+
+  const visibleNews = ((news as NewsPost[]) ?? []).filter((post) => {
+    if (!post.published_at) return true;
+    return new Date(post.published_at).getTime() <= Date.now();
+  });
 
   return (
     <>
@@ -69,7 +73,7 @@ export default async function HomePage() {
       <MandateServices config={config} />
       <PatronPresident config={config} />
       <PartnersSection partners={(partners as Partner[]) ?? []} />
-      <LatestNews posts={(news as NewsPost[]) ?? []} />
+      <LatestNews posts={visibleNews} />
     </>
   );
 }

@@ -496,7 +496,7 @@ CREATE POLICY "Admins manage partners"
 -- ---- news_posts ----
 CREATE POLICY "Public read published news"
   ON public.news_posts FOR SELECT
-  USING (status = 'published' AND published_at <= now());
+  USING (status = 'published' AND (published_at IS NULL OR published_at <= now()));
 
 CREATE POLICY "Admins manage news_posts"
   ON public.news_posts FOR ALL

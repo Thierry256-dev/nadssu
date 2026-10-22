@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
     },
   },
   allowedDevOrigins: ["192.168.1.11"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "vrbumccukfucbsxxnjhu.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
