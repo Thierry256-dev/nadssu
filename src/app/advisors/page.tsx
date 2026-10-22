@@ -54,8 +54,9 @@ export default async function AdvisorsPage() {
                       <Image
                         src={advisor.photo_url}
                         alt={advisor.name}
-                        fill
-                        className="object-cover object-top"
+                        width={800}
+                        height={600}
+                        className="h-full w-full object-cover object-top"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                     ) : (

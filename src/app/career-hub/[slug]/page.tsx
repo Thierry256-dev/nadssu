@@ -28,9 +28,10 @@ export async function generateMetadata({
   const { data } = await supabase
     .from("career_opportunities")
     .select("title, description")
-    .eq("slug", slug)
+    .or(`slug.eq.${slug},id.eq.${slug}`)
     .eq("status", "published")
-    .single();
+    .maybeSingle();
+
   if (!data) return { title: "Opportunity Not Found" };
   return {
     title: data.title,
@@ -48,9 +49,9 @@ export default async function OpportunityDetailPage({
   const { data: opp } = await supabase
     .from("career_opportunities")
     .select("*")
-    .eq("slug", slug)
+    .or(`slug.eq.${slug},id.eq.${slug}`)
     .eq("status", "published")
-    .single();
+    .maybeSingle();
 
   if (!opp) notFound();
 

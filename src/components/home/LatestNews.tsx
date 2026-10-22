@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { useRef } from 'react'
-import { motion, useInView } from 'motion/react'
-import { ArrowRight, Calendar, ImageIcon } from 'lucide-react'
-import { format, parseISO } from 'date-fns'
-import type { NewsPost } from '@/lib/types'
+import Link from "next/link";
+import Image from "next/image";
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
+import { ArrowRight, Calendar, ImageIcon } from "lucide-react";
+import { format, parseISO } from "date-fns";
+import type { NewsPost } from "@/lib/types";
 
 interface LatestNewsProps {
-  posts: NewsPost[]
+  posts: NewsPost[];
 }
 
 export function LatestNews({ posts }: LatestNewsProps) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <section className="section-powder py-14 lg:py-20" ref={ref}>
@@ -26,8 +26,12 @@ export function LatestNews({ posts }: LatestNewsProps) {
           className="flex items-center justify-between mb-8"
         >
           <div>
-            <h2 className="text-2xl font-bold text-navy mb-1">Latest Updates</h2>
-            <p className="text-muted-foreground text-sm">News and announcements from NADSSU</p>
+            <h2 className="text-2xl font-bold text-navy mb-1">
+              Latest Updates
+            </h2>
+            <p className="text-muted-foreground text-sm">
+              News and announcements from NADSSU
+            </p>
           </div>
           <Link
             href="/news"
@@ -44,8 +48,12 @@ export function LatestNews({ posts }: LatestNewsProps) {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-center py-16 bg-white rounded-2xl border border-border"
           >
-            <p className="text-muted-foreground text-sm">No news articles published yet.</p>
-            <p className="text-muted-foreground text-xs mt-1">Check back soon for updates.</p>
+            <p className="text-muted-foreground text-sm">
+              No news articles published yet.
+            </p>
+            <p className="text-muted-foreground text-xs mt-1">
+              Check back soon for updates.
+            </p>
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -63,13 +71,17 @@ export function LatestNews({ posts }: LatestNewsProps) {
                       <Image
                         src={post.cover_image_url}
                         alt={post.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        width={1200}
+                        height={675}
+                        className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <ImageIcon size={32} className="text-muted-foreground/30" />
+                        <ImageIcon
+                          size={32}
+                          className="text-muted-foreground/30"
+                        />
                       </div>
                     )}
                     <div className="absolute top-3 left-3">
@@ -94,8 +106,8 @@ export function LatestNews({ posts }: LatestNewsProps) {
                     <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                       <Calendar size={12} />
                       {post.published_at
-                        ? format(parseISO(post.published_at), 'MMM d, yyyy')
-                        : 'Unpublished'}
+                        ? format(parseISO(post.published_at), "MMM d, yyyy")
+                        : "Unpublished"}
                     </div>
                     <Link
                       href={`/news/${post.slug}`}
@@ -120,5 +132,5 @@ export function LatestNews({ posts }: LatestNewsProps) {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -76,7 +76,7 @@ export function Header({ config }: HeaderProps) {
                 alt={`${config.site_name} logo`}
                 width={40}
                 height={40}
-                className="h-10 w-auto object-contain"
+                className="h-10 w-10 object-contain"
               />
             ) : (
               <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm shrink-0">

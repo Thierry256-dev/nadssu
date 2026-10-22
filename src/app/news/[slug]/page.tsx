@@ -109,8 +109,9 @@ export default async function NewsDetailPage({
                   <Image
                     src={post.cover_image_url}
                     alt={post.title}
-                    fill
-                    className="object-cover"
+                    width={1600}
+                    height={900}
+                    className="h-full w-full object-cover"
                     priority
                     sizes="(max-width: 768px) 100vw, 75vw"
                   />

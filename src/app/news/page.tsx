@@ -67,8 +67,9 @@ export default async function NewsPage() {
                         <Image
                           src={post.cover_image_url}
                           alt={post.title}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          width={1200}
+                          height={800}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                         />
                       ) : (
