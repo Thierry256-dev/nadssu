@@ -38,11 +38,11 @@ export default async function AdminDashboardPage() {
   }
 
   const [
-    { data: newsCount },
-    { data: eventsCount },
-    { data: opportunitiesCount },
-    { data: applicationsCount },
-    { data: messagesCount },
+    { count: newsCount },
+    { count: eventsCount },
+    { count: opportunitiesCount },
+    { count: applicationsCount },
+    { count: messagesCount },
   ] = await Promise.all([
     supabase
       .from("news_posts")

@@ -41,6 +41,8 @@ export async function Footer({ config }: FooterProps) {
   const adminHref = user ? "/admin" : "/admin/login";
   const adminLabel = user ? "Dashboard" : "Sign in";
 
+  const logoSrc = config.logo_url ?? "/logo.png";
+
   return (
     <footer className="section-navy mt-auto">
       <div className="container-site py-12 lg:py-16">
@@ -48,9 +50,9 @@ export async function Footer({ config }: FooterProps) {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-4 group">
-              {config.logo_url ? (
+              {logoSrc ? (
                 <Image
-                  src={config.logo_url}
+                  src={logoSrc}
                   alt={`${config.site_name} logo`}
                   width={40}
                   height={40}

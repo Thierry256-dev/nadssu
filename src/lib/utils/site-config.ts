@@ -13,7 +13,7 @@ const DEFAULT_CONFIG: SiteConfig = {
   hero_cta_secondary: { label: "Explore Our Work", href: "/about" },
   hero_image_url: null,
   announcement: null,
-  logo_url: null,
+  logo_url: "/NADSSU.png",
   contact_email: "info@nadssu.org",
   contact_phone: [],
   contact_address: "Kampala, Uganda",
