@@ -1,40 +1,42 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { motion } from 'motion/react'
-import { ArrowRight, Search } from 'lucide-react'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import type { SiteConfig } from '@/lib/types'
+import Link from "next/link";
+import Image from "next/image";
+import { motion } from "motion/react";
+import { ArrowRight, Search } from "lucide-react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import type { SiteConfig } from "@/lib/types";
 
 interface HeroSectionProps {
-  config: SiteConfig
+  config: SiteConfig;
 }
 
 export function HeroSection({ config }: HeroSectionProps) {
-  const [query, setQuery] = useState('')
-  const router = useRouter()
+  const [query, setQuery] = useState("");
+  const router = useRouter();
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (query.trim()) {
-      router.push(`/news?q=${encodeURIComponent(query.trim())}`)
+      router.push(`/news?q=${encodeURIComponent(query.trim())}`);
     }
-  }
+  };
 
   return (
     <section className="relative overflow-hidden bg-navy min-h-[580px] flex items-center">
       {/* Background image */}
       {config.hero_image_url && (
-        <Image
-          src={config.hero_image_url}
-          alt="NADSSU hero banner"
-          fill
-          className="object-cover opacity-20"
-          priority
-          sizes="100vw"
-        />
+        <div className="absolute inset-0">
+          <Image
+            src={config.hero_image_url}
+            alt="NADSSU hero banner"
+            fill
+            className="object-cover opacity-20"
+            priority
+            sizes="100vw"
+          />
+        </div>
       )}
 
       {/* Gradient overlay */}
@@ -100,7 +102,10 @@ export function HeroSection({ config }: HeroSectionProps) {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <div className="relative flex-1">
-              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/50" />
+              <Search
+                size={16}
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/50"
+              />
               <input
                 type="search"
                 value={query}
@@ -130,10 +135,26 @@ export function HeroSection({ config }: HeroSectionProps) {
           <div className="container-site">
             <div className="flex gap-0 overflow-x-auto scrollbar-hide">
               {[
-                { label: 'News & Updates', href: '/news', sub: 'Latest information' },
-                { label: 'Events', href: '/events', sub: 'Workshops & seminars' },
-                { label: 'Career Hub', href: '/career-hub', sub: 'Opportunities' },
-                { label: 'Resources', href: '/resources', sub: 'Documents & downloads' },
+                {
+                  label: "News & Updates",
+                  href: "/news",
+                  sub: "Latest information",
+                },
+                {
+                  label: "Events",
+                  href: "/events",
+                  sub: "Workshops & seminars",
+                },
+                {
+                  label: "Career Hub",
+                  href: "/career-hub",
+                  sub: "Opportunities",
+                },
+                {
+                  label: "Resources",
+                  href: "/resources",
+                  sub: "Documents & downloads",
+                },
               ].map((item) => (
                 <Link
                   key={item.href}
@@ -151,5 +172,5 @@ export function HeroSection({ config }: HeroSectionProps) {
         </div>
       </motion.div>
     </section>
-  )
+  );
 }

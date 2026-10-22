@@ -25,12 +25,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const supabase = await createClient();
-  const { data } = await supabase
+
+  let { data } = await supabase
     .from("career_opportunities")
     .select("title, description")
-    .or(`slug.eq.${slug},id.eq.${slug}`)
+    .eq("slug", slug)
     .eq("status", "published")
     .maybeSingle();
+
+  if (!data) {
+    const { data: rowById } = await supabase
+      .from("career_opportunities")
+      .select("title, description")
+      .eq("id", slug)
+      .eq("status", "published")
+      .maybeSingle();
+    data = rowById;
+  }
 
   if (!data) return { title: "Opportunity Not Found" };
   return {
@@ -46,12 +57,23 @@ export default async function OpportunityDetailPage({
 }) {
   const { slug } = await params;
   const supabase = await createClient();
-  const { data: opp } = await supabase
+
+  let { data: opp } = await supabase
     .from("career_opportunities")
     .select("*")
-    .or(`slug.eq.${slug},id.eq.${slug}`)
+    .eq("slug", slug)
     .eq("status", "published")
     .maybeSingle();
+
+  if (!opp) {
+    const { data: rowById } = await supabase
+      .from("career_opportunities")
+      .select("*")
+      .eq("id", slug)
+      .eq("status", "published")
+      .maybeSingle();
+    opp = rowById;
+  }
 
   if (!opp) notFound();
 
@@ -146,12 +168,7 @@ export default async function OpportunityDetailPage({
             </div>
 
             {opportunity.description && (
-              <div
-                className="prose-nadssu mb-8"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(opportunity.description),
-                }}
-              />
+              <div className="prose-nadssu mb-8">{opportunity.description}</div>
             )}
 
             <div className="flex flex-wrap gap-3">
