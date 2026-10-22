@@ -41,7 +41,7 @@ export async function Footer({ config }: FooterProps) {
   const adminHref = user ? "/admin" : "/admin/login";
   const adminLabel = user ? "Dashboard" : "Sign in";
 
-  const logoSrc = config.logo_url ?? "/logo.png";
+  const logoSrc = config.logo_url || "/logo.png";
 
   return (
     <footer className="section-navy mt-auto">

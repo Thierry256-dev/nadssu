@@ -10,16 +10,21 @@ export async function generateMetadata(): Promise<Metadata> {
   const config = await getSiteConfig();
   return {
     title: {
-      default: `${config.site_name} — ${config.site_tagline}`,
-      template: `%s | ${config.site_name}`,
+      default: `${config.site_name || "NADSSU"} — ${config.site_tagline || "Nutrition and Dietetics Students' Society of Uganda"}`,
+      template: `%s | ${config.site_name || "NADSSU"}`,
     },
-    description: config.site_description,
+    description: config.site_description || "NADSSU website",
     metadataBase: new URL(
       process.env.NEXT_PUBLIC_SITE_URL ?? "https://nadssu.org",
     ),
+    icons: {
+      icon: config.favicon_url || config.logo_url || "/NADSSU.png",
+      shortcut: config.favicon_url || config.logo_url || "/NADSSU.png",
+      apple: config.logo_url || "/NADSSU.png",
+    },
     openGraph: {
       type: "website",
-      siteName: config.site_name,
+      siteName: config.site_name || "NADSSU",
     },
     robots: { index: true, follow: true },
   };

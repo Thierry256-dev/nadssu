@@ -32,7 +32,7 @@ export function HeroSection({ config }: HeroSectionProps) {
             src={config.hero_image_url}
             alt="NADSSU hero banner"
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-80"
             priority
             sizes="100vw"
           />
@@ -40,7 +40,7 @@ export function HeroSection({ config }: HeroSectionProps) {
       )}
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy/90 to-blue-brand/60" />
+      <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy/30 to-blue-brand/10" />
 
       <div className="relative container-site py-20 lg:py-28 z-10">
         <div className="max-w-3xl">
@@ -49,7 +49,7 @@ export function HeroSection({ config }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-block px-3 py-1 bg-primary/20 text-blue-light rounded-full text-sm font-medium mb-6 border border-primary/30">
+            <span className="inline-block px-3 py-1 bg-primary/20 text-white/90 rounded-full text-sm font-medium mb-6 border border-primary/30">
               Nutrition &amp; Dietetics Students&apos; Society of Uganda
             </span>
           </motion.div>
