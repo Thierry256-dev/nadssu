@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  allowedDevOrigins: ["192.168.1.11"],
+  allowedDevOrigins: ["192.168.1.11", "192.168.1.24"],
   images: {
     remotePatterns: [
       {

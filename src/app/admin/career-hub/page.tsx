@@ -1,5 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { AdminModulePage } from "@/components/admin/AdminModulePage";
+import Link from "next/link";
+import { PencilLine } from "lucide-react";
+import { CareerOpportunityDeleteButton } from "@/components/admin/career-hub/CareerOpportunityDeleteButton";
 
 export default async function CareerHubAdminPage() {
   const supabase = await createClient();
@@ -50,6 +53,23 @@ export default async function CareerHubAdminPage() {
                 ? new Date(String(row.deadline)).toLocaleDateString()
                 : "—"}
             </span>
+          ),
+        },
+        {
+          key: "actions",
+          label: "Actions",
+          className: "w-40",
+          render: (row) => (
+            <div className="flex items-center gap-2">
+              <Link
+                href={`/admin/career-hub/${String(row.id)}`}
+                className="inline-flex items-center gap-2 rounded-lg border border-border bg-white px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+              >
+                <PencilLine className="h-4 w-4" />
+                Edit
+              </Link>
+              <CareerOpportunityDeleteButton id={String(row.id)} />
+            </div>
           ),
         },
       ]}
