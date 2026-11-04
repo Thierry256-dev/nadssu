@@ -72,7 +72,7 @@ export function Header({ config }: HeaderProps) {
           >
             {config.logo_url ? (
               <Image
-                src={config.logo_url || "/logo.png"}
+                src={"/logo.png"}
                 alt={`${config.site_name} logo`}
                 width={40}
                 height={40}

@@ -8,13 +8,55 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { SiteConfig } from "@/lib/types";
 
-interface HeroSectionProps {
-  config: SiteConfig;
+interface HeroContentItem {
+  label: string;
+  type: string;
+  title: string;
+  href: string;
+  meta: string;
 }
 
-export function HeroSection({ config }: HeroSectionProps) {
+interface HeroSectionProps {
+  config: SiteConfig;
+  items?: HeroContentItem[];
+}
+
+export function HeroSection({ config, items = [] }: HeroSectionProps) {
   const [query, setQuery] = useState("");
   const router = useRouter();
+  const marqueeItems =
+    items.length > 0
+      ? [...items, ...items]
+      : [
+          {
+            label: "News & Updates",
+            type: "News",
+            title: "Latest NADSSU updates",
+            href: "/news",
+            meta: "News",
+          },
+          {
+            label: "Events",
+            type: "Event",
+            title: "Upcoming events and workshops",
+            href: "/events",
+            meta: "Event",
+          },
+          {
+            label: "Career Hub",
+            type: "Career Hub",
+            title: "Career opportunities",
+            href: "/career-hub",
+            meta: "Career",
+          },
+          {
+            label: "Resources",
+            type: "Resources",
+            title: "Useful resources",
+            href: "/resources",
+            meta: "Resource",
+          },
+        ];
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,24 +65,25 @@ export function HeroSection({ config }: HeroSectionProps) {
     }
   };
 
+  const heroImageSrc = config.hero_image_url || "/images/hero-image.jpg";
+
   return (
     <section className="relative overflow-hidden bg-navy min-h-[580px] flex items-center">
       {/* Background image */}
-      {config.hero_image_url && (
-        <div className="absolute inset-0">
-          <Image
-            src={config.hero_image_url}
-            alt="NADSSU hero banner"
-            fill
-            className="object-cover opacity-80"
-            priority
-            sizes="100vw"
-          />
-        </div>
-      )}
+      <div className="absolute inset-0">
+        <Image
+          src={heroImageSrc}
+          alt="NADSSU hero banner"
+          fill
+          className="object-cover opacity-80"
+          priority
+          sizes="100vw"
+        />
+      </div>
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy/30 to-blue-brand/10" />
+      {/* Green gradient overlay from bottom left */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-primary/80 via-primary/45 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy/40 to-blue-brand/10" />
 
       <div className="relative container-site py-20 lg:py-28 z-10">
         <div className="max-w-3xl">
@@ -131,40 +174,24 @@ export function HeroSection({ config }: HeroSectionProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        <div className="bg-white/10 backdrop-blur-sm border-t border-white/10">
+        <div className="bg-white/10 backdrop-blur-sm border-t border-white/10 overflow-hidden">
           <div className="container-site">
-            <div className="flex gap-0 overflow-x-auto scrollbar-hide">
-              {[
-                {
-                  label: "News & Updates",
-                  href: "/news",
-                  sub: "Latest information",
-                },
-                {
-                  label: "Events",
-                  href: "/events",
-                  sub: "Workshops & seminars",
-                },
-                {
-                  label: "Career Hub",
-                  href: "/career-hub",
-                  sub: "Opportunities",
-                },
-                {
-                  label: "Resources",
-                  href: "/resources",
-                  sub: "Documents & downloads",
-                },
-              ].map((item) => (
+            <div className="hero-marquee-track flex w-max min-w-full">
+              {marqueeItems.map((item, index) => (
                 <Link
-                  key={item.href}
+                  key={`${item.href}-${index}`}
                   href={item.href}
-                  className="flex-1 min-w-[140px] px-4 py-3 text-center hover:bg-white/10 transition-colors border-r border-white/10 last:border-r-0 group"
+                  className="group flex-shrink-0 w-[260px] border-r border-white/10 px-4 py-3 text-left last:border-r-0 hover:bg-white/10 transition-colors"
                 >
-                  <div className="text-sm font-semibold text-white group-hover:text-blue-light transition-colors">
-                    {item.label}
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70">
+                    {item.type}
                   </div>
-                  <div className="text-xs text-white/50 mt-0.5">{item.sub}</div>
+                  <div className="mt-1 text-sm font-semibold text-white group-hover:text-blue-light transition-colors line-clamp-1">
+                    {item.title}
+                  </div>
+                  <div className="mt-1 text-[11px] text-white/55">
+                    {item.meta}
+                  </div>
                 </Link>
               ))}
             </div>

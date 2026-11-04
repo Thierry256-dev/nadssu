@@ -259,3 +259,20 @@
     padding-inline: 2.5rem;
   }
 }
+
+@keyframes hero-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hero-marquee-track {
+  animation: hero-marquee 22s linear infinite;
+}
+
+.hero-marquee-track:hover {
+  animation-play-state: paused;
+}

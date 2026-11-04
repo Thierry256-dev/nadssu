@@ -137,7 +137,7 @@ export function PatronPresident({ config }: PatronPresidentProps) {
               <>
                 <MessageCard
                   name={config.patron_name || "Dr. Samalie Namukose"}
-                  title={config.patron_title || "Patron"}
+                  title={"Patron"}
                   imageUrl={
                     config.patron_image_url || "/images/governance/patron.png"
                   }
@@ -146,7 +146,7 @@ export function PatronPresident({ config }: PatronPresidentProps) {
                 />
                 <MessageCard
                   name={config.president_name || "Byazarwa Christopher"}
-                  title={config.president_title || "President"}
+                  title={"President"}
                   imageUrl={
                     config.president_image_url ||
                     "/images/governance/president.png"

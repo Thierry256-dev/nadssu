@@ -147,10 +147,16 @@ export function SiteSettingsForm({
     } as SiteConfig;
   };
 
-  const [values, setValues] = useState<SiteConfig>(() => buildInitialValues());
+  const initialValues = buildInitialValues();
+  const [values, setValues] = useState<SiteConfig>(initialValues);
+  const [originalValues, setOriginalValues] =
+    useState<SiteConfig>(initialValues);
   const [message, setMessage] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState<Record<string, boolean>>({});
+
+  const areValuesEqual = (left: unknown, right: unknown) =>
+    JSON.stringify(left ?? null) === JSON.stringify(right ?? null);
 
   function updateField<K extends keyof SiteConfig>(
     key: K,
@@ -225,44 +231,26 @@ export function SiteSettingsForm({
     setIsSaving(true);
 
     try {
-      const entries: Array<[keyof SiteConfig, SiteConfig[keyof SiteConfig]]> = [
-        ["site_name", values.site_name],
-        ["site_tagline", values.site_tagline],
-        ["site_description", values.site_description],
-        ["hero_heading", values.hero_heading],
-        ["hero_subheading", values.hero_subheading],
-        ["hero_cta_primary", values.hero_cta_primary],
-        ["hero_cta_secondary", values.hero_cta_secondary],
-        ["hero_image_url", values.hero_image_url],
-        ["announcement", values.announcement],
-        ["logo_url", values.logo_url],
-        ["favicon_url", values.favicon_url],
-        ["contact_email", values.contact_email],
-        ["contact_phone", values.contact_phone],
-        ["contact_address", values.contact_address],
-        ["social_links", values.social_links],
-        ["footer_description", values.footer_description],
-        ["patron_name", values.patron_name],
-        ["patron_title", values.patron_title],
-        ["patron_bio", values.patron_bio],
-        ["patron_image_url", values.patron_image_url],
-        ["president_name", values.president_name],
-        ["president_title", values.president_title],
-        ["president_bio", values.president_bio],
-        ["president_image_url", values.president_image_url],
-        ["mandate_heading", values.mandate_heading],
-        ["mandate_content", values.mandate_content],
-        ["services_heading", values.services_heading],
-        ["services_content", values.services_content],
-      ];
+      const changedEntries = (
+        Object.keys(DEFAULT_SITE_CONFIG) as Array<keyof SiteConfig>
+      ).filter((key) => !areValuesEqual(values[key], originalValues[key]));
 
-      for (const [key, value] of entries) {
-        const result = await updateSiteSetting(String(key), value ?? null);
+      if (changedEntries.length === 0) {
+        setMessage("No changes to save.");
+        return;
+      }
+
+      for (const key of changedEntries) {
+        const result = await updateSiteSetting(
+          String(key),
+          values[key] ?? null,
+        );
         if (!result.success) {
           throw new Error(result.error ?? `Failed to save ${String(key)}`);
         }
       }
 
+      setOriginalValues(values);
       setMessage("Settings saved successfully.");
     } catch (error: unknown) {
       setMessage(
@@ -284,7 +272,9 @@ export function SiteSettingsForm({
           throw new Error(result.error ?? `Failed to reset ${key}`);
         }
       }
-      setValues(DEFAULT_SITE_CONFIG);
+      const nextDefaults = DEFAULT_SITE_CONFIG;
+      setValues(nextDefaults);
+      setOriginalValues(nextDefaults);
       setMessage("Site settings were reset to default values.");
     } catch (error: unknown) {
       setMessage(

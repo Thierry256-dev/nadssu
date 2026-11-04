@@ -31,7 +31,7 @@ export function MandateServices({ config }: MandateServicesProps) {
             </div>
             <h2 className="text-xl font-bold text-navy mb-3">Our Mandate</h2>
             <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
-              <p>
+              <p className="max-md:line-clamp-4 md:line-clamp-none">
                 NADSSU is mandated by its 2024 Constitution to serve as the
                 collective voice of nutrition and dietetics students across
                 Uganda uniting, representing, and advocating for policies and
@@ -65,7 +65,7 @@ export function MandateServices({ config }: MandateServicesProps) {
             </div>
             <h2 className="text-xl font-bold text-navy mb-3">Our Services</h2>
             <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
-              <p>
+              <p className="max-md:line-clamp-4 md:line-clamp-none">
                 Aligned with the constitutional roles of the Executive Board and
                 specific officers, NADSSU provides a comprehensive suite of
                 services to its members-including the coordination of

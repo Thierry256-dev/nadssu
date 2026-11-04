@@ -21,7 +21,7 @@ export const membershipApplicationSchema = z.object({
   institution: z.string().max(300).optional(),
   membership_category_id: z
     .string()
-    .uuid("Please select a membership category"),
+    .min(1, "Please select a membership category"),
   membership_number: z.string().max(100).optional(),
   additional_info: z.string().max(2000).optional(),
   consent_given: z.boolean().refine((value) => value === true, {
