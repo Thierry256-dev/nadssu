@@ -67,11 +67,13 @@ function MessageCard({
           <div className="text-xs font-semibold uppercase tracking-wide text-primary">
             {title}
           </div>
-          <h3 className="mt-1 text-xl font-bold text-navy">{name}</h3>
+          <h3 className="mt-1 text-xl font-bold text-navy font-[Georgia,serif]">
+            {name}
+          </h3>
         </div>
       </div>
 
-      <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
+      <div className="space-y-4 text-sm leading-relaxed text-muted-foreground text-justify">
         {visibleMessage.map((paragraph, index) => (
           <p key={`${paragraph}-${index}`}>{paragraph}</p>
         ))}
@@ -124,7 +126,7 @@ export function PatronPresident({ config }: PatronPresidentProps) {
             transition={{ duration: 0.4 }}
             className="mb-8"
           >
-            <h2 className="text-2xl font-bold text-navy mb-2">
+            <h2 className="text-2xl font-bold text-navy mb-2 font-[Georgia,serif]">
               Our Patron &amp; President
             </h2>
             <p className="text-muted-foreground text-sm">
@@ -168,7 +170,7 @@ export function PatronPresident({ config }: PatronPresidentProps) {
             transition={{ duration: 0.4 }}
             className="mb-8 text-center"
           >
-            <h2 className="text-2xl font-bold text-navy mb-2">
+            <h2 className="text-2xl font-bold text-navy mb-2 font-[Georgia,serif]">
               Our Partners / Keyholders
             </h2>
             <p className="text-muted-foreground text-sm">

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { AdminModulePage } from "@/components/admin/AdminModulePage";
+import Link from "next/link";
 
 export default async function GovernanceAdminPage() {
   const supabase = await createClient();
@@ -44,6 +45,18 @@ export default async function GovernanceAdminPage() {
             >
               {String(row.is_published) === "true" ? "Yes" : "No"}
             </span>
+          ),
+        },
+        {
+          key: "actions",
+          label: "Actions",
+          render: (row) => (
+            <Link
+              href={`/admin/governance/${String(row.id)}`}
+              className="font-medium text-primary hover:underline"
+            >
+              Edit
+            </Link>
           ),
         },
       ]}
