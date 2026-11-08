@@ -18,7 +18,7 @@ export default async function GovernancePage() {
       .from("governance_units")
       .select("*")
       .eq("is_visible", true)
-      .order("sort_order"),
+      .order("sort_order", { ascending: true }),
     supabase
       .from("governance_members")
       .select("*, governance_units(title)")
